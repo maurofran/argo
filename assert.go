@@ -34,6 +34,11 @@ func Not(value bool, msg string, args ...interface{}) error {
 	return illegalArgumentIf(value, msg, args...)
 }
 
+// Nil will check if supplied value is nil.
+func Nil(value interface{}, argName string) error {
+	return illegalArgumentIf(value != nil, "%s must be nil", argName)
+}
+
 // NotNil will check if supplied value is not nil.
 func NotNil(value interface{}, argName string) error {
 	return illegalArgumentIf(value == nil, "%s is required", argName)
@@ -48,7 +53,7 @@ func NotBlank(value string, argName string) error {
 // Length will check if supplied string has exactly supplied length.
 func Length(value string, exactLength int, argName string) error {
 	length := len(value)
-	return illegalArgumentIf(length == exactLength, "%s must be long exactly %d", argName, exactLength)
+	return illegalArgumentIf(length != exactLength, "%s must be long exactly %d", argName, exactLength)
 }
 
 // MinLength will check if supplied string has provided minimum length.
